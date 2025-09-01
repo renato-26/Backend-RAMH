@@ -10,3 +10,11 @@
     {% endfor %}
 </body>
 </html> 
+
+<ul>
+    {% for d in dispositivos%}
+    <li>{{d.nombre}} - {{d.categoria}} - {{d.categoria.estado}}</li>
+    {% empty %}
+    <li> no hay dispositvos</li>
+    {% endfor% }
+</ul>
