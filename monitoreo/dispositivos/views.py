@@ -23,3 +23,14 @@ def dispositivos(request, dispositivo_id):
                 "dispostivos/dispositivos.html",
                 {"dispositivo": dispositivo}
                 )
+
+
+def crear_dispositivos(request):
+    if request.method == 'POST'
+    form = DispositivoForm(request.Post)
+    if form.is_valid():
+        form.save()
+        return redirect('listar_dispositivos')
+    else:
+        form = DispositivosForm()
+    return render(request, 'dispositivos/crear.html', {'fomr': form})
