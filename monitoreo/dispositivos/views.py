@@ -26,17 +26,17 @@ def dispositivos(request, dispositivo_id):
 
 
 def crear_dispositivos(request):
-    if request.method == 'POST'
-    form = DispositivoForm(request.Post)
-    if form.is_valid():
-        form.save()
-        return redirect('listar_dispositivos')
+    if request.method == 'POST':
+        form = DispositivoForm(request.Post)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_dispositivos')
     else:
         form = DispositivosForm()
     return render(request, 'dispositivos/crear.html', {'fomr': form})
 
 def editar_dispostivos(request, dispositivo_id):
-    dispositivo = get _object_or_404(dispositivo, id=dispositivo_id)
+    dispositivo = get_object_or_404(dispositivo, id=dispositivo_id)
     if request.method == 'POST':
         form = DispositivoForm(request.POST, instance=dispositivo)
         if form.is_valid():
@@ -48,7 +48,7 @@ def editar_dispostivos(request, dispositivo_id):
 
 
 def eliminar_dispostivos(request, dispositivo_id):
-    dispositivo = get _object_or_404(dispositivo, id=dispositivo_id)
+    dispositivo = get_object_or_404(dispositivo, id=dispositivo_id)
     if request.method == 'POST':
         dispositivo.delete()
         return redirect('listar_dispositivos')
