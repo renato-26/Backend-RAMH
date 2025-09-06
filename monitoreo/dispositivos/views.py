@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from .models import dispositivos
-from .forms import dispositivosForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Dispositivo
+from .forms import DispositivoForm
 
 def inicio(request):
     contexto = {"nombre": "profe javier"}
@@ -16,27 +16,27 @@ def inicio(request):
     })
 
 def dispositivos(request, dispositivo_id):
-    dispositivo = dispositivos.objects.get(
+    dispositivo = Dispositivo.objects.get(
         id=dispositivo_id
     )
     return render(request,
-                "dispostivos/dispositivos.html",
+                "dispositivos/dispositivos.html",
                 {"dispositivo": dispositivo}
                 )
 
 
 def crear_dispositivos(request):
     if request.method == 'POST':
-        form = DispositivoForm(request.Post)
+        form = DispositivoForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('listar_dispositivos')
     else:
-        form = DispositivosForm()
+        form = DispositivoForm()
     return render(request, 'dispositivos/crear.html', {'fomr': form})
 
-def editar_dispostivos(request, dispositivo_id):
-    dispositivo = get_object_or_404(dispositivo, id=dispositivo_id)
+def editar_dispositivos(request, dispositivo_id):
+    dispositivo = get_object_or_404(Dispositivo, id=dispositivo_id)
     if request.method == 'POST':
         form = DispositivoForm(request.POST, instance=dispositivo)
         if form.is_valid():
@@ -47,8 +47,8 @@ def editar_dispostivos(request, dispositivo_id):
     return render(request, 'dispositivos/editar.html',{'form': form})
 
 
-def eliminar_dispostivos(request, dispositivo_id):
-    dispositivo = get_object_or_404(dispositivo, id=dispositivo_id)
+def eliminar_dispositivos(request, dispositivo_id):
+    dispositivo = get_object_or_404(Dispositivo, id=dispositivo_id)
     if request.method == 'POST':
         dispositivo.delete()
         return redirect('listar_dispositivos')
